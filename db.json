@@ -1,0 +1,143 @@
+{
+  "products": [
+    {
+      "id": "c02f",
+      "name": "Marlon Ruan",
+      "price": 1000
+    },
+    {
+      "name": "Arroz branco",
+      "price": 0.1,
+      "id": "6761"
+    },
+    {
+      "id": "dd2c",
+      "name": "Macarrão alho e óleo",
+      "price": 35,
+      "quantity": 5,
+      "weight": 250
+    },
+    {
+      "id": "822f",
+      "name": "Feijão tropeito ",
+      "price": 25,
+      "quantity": 5,
+      "weight": 500
+    }
+  ],
+  "sales": [
+    {
+      "id": "63b5",
+      "items": [
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "name": "Arroz branco",
+          "price": 0.1,
+          "id": "6761"
+        }
+      ],
+      "total": 1000.1
+    },
+    {
+      "id": "cc99",
+      "items": [
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        }
+      ],
+      "total": 3000
+    },
+    {
+      "id": "b197",
+      "items": [
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "name": "Arroz branco",
+          "price": 0.1,
+          "id": "6761"
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        }
+      ],
+      "total": 3000.1
+    },
+    {
+      "id": "f717",
+      "items": [],
+      "total": 0,
+      "date": "2024-06-04T00:30:47.235Z"
+    },
+    {
+      "id": "ba9a",
+      "items": [
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        }
+      ],
+      "total": 4000,
+      "date": "2024-06-04T00:34:21.896Z"
+    },
+    {
+      "id": "3d58",
+      "items": [
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        },
+        {
+          "id": "c02f",
+          "name": "Marlon Ruan",
+          "price": 1000
+        }
+      ],
+      "total": 2000,
+      "date": "2024-06-04T00:41:25.419Z"
+    }
+  ]
+}
