@@ -28,9 +28,29 @@ function ProductList() {
     dispatch({ type: 'ADD_TO_CART', payload: product });
   };
 
+  const handleBackToDashboard = () => {
+    navigate('/');
+  };
+
+  const handleDelete = (productId) => {
+    api.delete(`/products/${productId}`)
+      .then(() => {
+        dispatch({ type: 'REMOVE_PRODUCT', payload: productId });
+      })
+      .catch(error => console.error('Erro ao excluir produto:', error));
+  };
+
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Lista de Produtos</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Lista de Produtos</h2>
+        <button
+          onClick={handleBackToDashboard}
+          className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-200"
+        >
+          Voltar ao Dashboard
+        </button>
+      </div>
       <div className="mb-4">
         <button
           onClick={handleAddProduct}
@@ -62,9 +82,15 @@ function ProductList() {
                   </button>
                   <button 
                     onClick={() => handleAddToCart(product)} 
-                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200"
+                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200 mr-2"
                   >
                     Adicionar ao Carrinho
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(product.id)} 
+                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-200"
+                  >
+                    Excluir
                   </button>
                 </td>
               </tr>

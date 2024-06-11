@@ -3,13 +3,29 @@ import api from '../services/api';
 
 function SalesHistory() {
   const [sales, setSales] = useState([]);
+  const [dailySales, setDailySales] = useState({});
 
   useEffect(() => {
-    // Buscar histórico de vendas da API
     api.get('/sales')
-      .then(response => setSales(response.data))
+      .then(response => {
+        setSales(response.data);
+        calculateDailySales(response.data);
+      })
       .catch(error => console.error('Erro ao buscar histórico de vendas:', error));
   }, []);
+
+  const calculateDailySales = (sales) => {
+    const salesByDate = sales.reduce((acc, sale) => {
+      const date = new Date(sale.date).toLocaleDateString();
+      if (!acc[date]) {
+        acc[date] = 0;
+      }
+      acc[date] += sale.total;
+      return acc;
+    }, {});
+
+    setDailySales(salesByDate);
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -27,17 +43,17 @@ function SalesHistory() {
               </tr>
             </thead>
             <tbody>
-              {sales.map(sale => (
-                <tr key={sale.id} className="hover:bg-gray-100">
-                  <td className="py-2 px-4 border-b">{new Date(sale.date).toLocaleString()}</td>
+              {Object.keys(dailySales).map(date => (
+                <tr key={date} className="hover:bg-gray-100">
+                  <td className="py-2 px-4 border-b">{date}</td>
                   <td className="py-2 px-4 border-b">
                     <ul>
-                      {sale.items.map(item => (
-                        <li key={item.id}>{item.name} - R${item.price.toFixed(2)}</li>
+                      {sales.filter(sale => new Date(sale.date).toLocaleDateString() === date).map(sale => (
+                        <li key={sale.id}>{sale.items.map(item => item.name).join(', ')} - R${sale.total.toFixed(2)}</li>
                       ))}
                     </ul>
                   </td>
-                  <td className="py-2 px-4 border-b">R${sale.total.toFixed(2)}</td>
+                  <td className="py-2 px-4 border-b">R${dailySales[date].toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

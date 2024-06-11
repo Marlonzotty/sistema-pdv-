@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
@@ -8,25 +8,31 @@ function Checkout() {
   const total = cart.reduce((acc, product) => acc + product.price, 0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [paymentMethod, setPaymentMethod] = useState('Dinheiro');
+  const [amountReceived, setAmountReceived] = useState(0);
 
   const handlePayment = () => {
-    // Preparar os dados da venda
+    if (amountReceived < total) {
+      alert('O valor recebido é menor que o total da compra.');
+      return;
+    }
+
     const saleData = {
       items: cart,
       total,
-      date: new Date().toISOString() // Adicionar data
+      paymentMethod,
+      date: new Date().toISOString()
     };
 
-    // Enviar dados para o histórico de vendas
     api.post('/sales', saleData)
       .then(() => {
-        // Limpar o carrinho
         dispatch({ type: 'CLEAR_CART' });
-        // Redirecionar para o histórico de vendas
         navigate('/sales-history');
       })
       .catch(error => console.error('Erro ao registrar a venda:', error));
   };
+
+  const change = amountReceived - total;
 
   return (
     <div className="container mx-auto p-4">
@@ -51,6 +57,40 @@ function Checkout() {
       </div>
       <div className="mt-4">
         <h3 className="text-xl font-bold">Total: R${total.toFixed(2)}</h3>
+      </div>
+      <div className="mt-4">
+        <label className="block mb-2">Valor Recebido:</label>
+        <input
+          type="number"
+          value={amountReceived}
+          onChange={(e) => setAmountReceived(parseFloat(e.target.value))}
+          className="w-full p-2 border border-gray-300 rounded mb-4"
+          placeholder="Digite o valor recebido"
+        />
+        <h3 className="text-xl font-bold">Troco: R${change.toFixed(2)}</h3>
+      </div>
+      <div className="mt-4">
+        <label className="block mb-2">Método de Pagamento:</label>
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setPaymentMethod('Dinheiro')}
+            className={`px-4 py-2 rounded ${paymentMethod === 'Dinheiro' ? 'bg-blue-700' : 'bg-blue-500'} text-white`}
+          >
+            Dinheiro
+          </button>
+          <button
+            onClick={() => setPaymentMethod('Cartão')}
+            className={`px-4 py-2 rounded ${paymentMethod === 'Cartão' ? 'bg-blue-700' : 'bg-blue-500'} text-white`}
+          >
+            Cartão
+          </button>
+          <button
+            onClick={() => setPaymentMethod('Pix')}
+            className={`px-4 py-2 rounded ${paymentMethod === 'Pix' ? 'bg-blue-700' : 'bg-blue-500'} text-white`}
+          >
+            Pix
+          </button>
+        </div>
       </div>
       <div className="mt-4">
         <button

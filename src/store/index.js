@@ -37,6 +37,11 @@ const productsReducer = (state = initialProductsState, action) => {
         ...state,
         items: action.payload,
       };
+    case 'REMOVE_PRODUCT':
+      return {
+        ...state,
+        items: state.items.filter(item => item.id !== action.payload),
+      };
     default:
       return state;
   }

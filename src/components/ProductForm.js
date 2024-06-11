@@ -29,7 +29,7 @@ function ProductForm() {
 
     api.post('/products', newProduct)
       .then(() => {
-        dispatch({ type: 'ADD_TO_CART', payload: newProduct });
+        dispatch({ type: 'ADD_PRODUCT', payload: newProduct });
         navigate('/products');
       })
       .catch(error => console.error('Erro ao adicionar produto:', error));

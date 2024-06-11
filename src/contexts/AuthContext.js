@@ -6,7 +6,6 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = (username, password, navigate) => {
-    // Simulação de autenticação, substitua pela lógica de autenticação real
     if (username === 'admin' && password === 'admin') {
       setIsAuthenticated(true);
       navigate('/');
